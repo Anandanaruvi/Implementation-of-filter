@@ -44,64 +44,45 @@ d. Laplacian filter
 i) Using Averaging Filter
 ```Python
 import cv2
+import matplotlib.pyplot as plt
 import numpy as np
-
-# Load the image
-image = cv2.imread("flower.jpg")
-
-# Create the averaging kernel
-kernel = np.ones((3, 3)) / 9
-
-# Apply the averaging filter
-averaging_smoothed = cv2.filter2D(image, -1, kernel)
-
-# Display the result
-cv2.imshow("Averaging Smoothed", averaging_smoothed)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+image1=cv2.imread("flower.jpg")
+image2=cv2.cvtColor(image1,cv2.COLOR_BGR2RGB)
+kernel=np.ones((11,11),np.float32)/169
+image3=cv2.filter2D(image2,-1,kernel)
+plt.figure(figsize=(9,9))
+plt.subplot(1,2,1)
+plt.imshow(image2)
+plt.title("Original Image")
+plt.axis("off")
+plt.subplot(1,2,2)
+plt.imshow(image3)
+plt.title("Average Filter Image")
+plt.axis("off")
+plt.show()
 ```
+![image](https://github.com/user-attachments/assets/ad7787ee-aa00-4fe2-9794-6069eb05d21b)
 
 
 
 
 ii) Using Weighted Averaging Filter:
 ```Python
-import cv2
-import matplotlib.pyplot as plt
-import numpy as np
-
-# Load the image
-image1 = cv2.imread("flower.jpg")
-
-# Convert the image to grayscale
-image2 = cv2.cvtColor(image1, cv2.COLOR_BGR2GRAY)
-
-# Create the weighted averaging kernel
-kernel1 = np.array([[1, 2, 1],
-                    [2, 4, 2],
-                    [1, 2, 1]]) / 16  # Normalized weights for better visualization
-
-# Apply the weighted averaging filter
-image3 = cv2.filter2D(image2, -1, kernel1)
-
-# Create the figure and subplots
-plt.figure(figsize=(8, 8))
-
-# Display the original image
-plt.subplot(1, 2, 1)
-plt.imshow(image2, cmap='gray')
+kernel1=np.array([[1,2,1],[2,4,2],[1,2,1]])/16
+image3=cv2.filter2D(image2,-1,kernel1)
+plt.figure(figsize=(9,9))
+plt.subplot(1,2,1)
+plt.imshow(image2)
 plt.title("Original Image")
 plt.axis("off")
-
-# Display the filtered image
-plt.subplot(1, 2, 2)
-plt.imshow(image3, cmap='gray')
+plt.subplot(1,2,2)
+plt.imshow(image3)
 plt.title("Weighted Average Filter Image")
 plt.axis("off")
-
-# Show the plot
 plt.show()
+
 ```
+![image](https://github.com/user-attachments/assets/f60a0216-b266-4991-8b08-5f9cafdea6a3)
 
 
 
@@ -109,37 +90,19 @@ plt.show()
 
 iii) Using Gaussian Filter: 
 ```Python
-import cv2
-import matplotlib.pyplot as plt
-import numpy as np
-
-# Load the image
-image1 = cv2.imread("flower.jpg")
-
-# Convert the image to grayscale
-image2 = cv2.cvtColor(image1, cv2.COLOR_BGR2GRAY)
-
-# Apply Gaussian blur with a kernel size of 5x5 and sigmaX (standard deviation) of 0 (calculated automatically)
-gaussian_blur = cv2.GaussianBlur(image2, (5, 5), 0)
-
-# Create the figure and subplots
-plt.figure(figsize=(8, 8))
-
-# Display the original image
-plt.subplot(1, 2, 1)
-plt.imshow(image2, cmap='gray')
+gaussian_blur=cv2.GaussianBlur(image2,(33,33),0,0)
+plt.figure(figsize=(9,9))
+plt.subplot(1,2,1)
+plt.imshow(image2)
 plt.title("Original Image")
 plt.axis("off")
-
-# Display the Gaussian blurred image
-plt.subplot(1, 2, 2)
-plt.imshow(gaussian_blur, cmap='gray')
+plt.subplot(1,2,2)
+plt.imshow(gaussian_blur)
 plt.title("Gaussian Blur")
 plt.axis("off")
-
-# Show the plot
 plt.show()
 ```
+![image](https://github.com/user-attachments/assets/3c2265cb-e04a-47ea-9d98-364b917cc4aa)
 
 
 
@@ -147,37 +110,19 @@ plt.show()
 
 iv)Using Median Filter:
 ```Python
-import cv2
-import matplotlib.pyplot as plt
-import numpy as np
-
-# Load the image
-image1 = cv2.imread("flower.jpg")
-
-# Convert the image to grayscale
-image2 = cv2.cvtColor(image1, cv2.COLOR_BGR2GRAY)
-
-# Apply median filter with a kernel size of 3x3
-median = cv2.medianBlur(image2, 3)
-
-# Create the figure and subplots
-plt.figure(figsize=(8, 8))
-
-# Display the original image
-plt.subplot(1, 2, 1)
-plt.imshow(image2, cmap='gray')
+median=cv2.medianBlur(image2,13)
+plt.figure(figsize=(9,9))
+plt.subplot(1,2,1)
+plt.imshow(image2)
 plt.title("Original Image")
 plt.axis("off")
-
-# Display the median filtered image
-plt.subplot(1, 2, 2)
-plt.imshow(median, cmap='gray')
-plt.title("Median Filter")
+plt.subplot(1,2,2)
+plt.imshow(median)
+plt.title("Median Blur")
 plt.axis("off")
-
-# Show the plot
 plt.show()
 ```
+![image](https://github.com/user-attachments/assets/912ee048-9e7e-43f6-8114-8f4f1fdf60b9)
 
 
 
@@ -187,138 +132,48 @@ plt.show()
 ### 2. Sharpening Filters
 i) Using Laplacian Linear Kernal
 ```Python
-import cv2
-import matplotlib.pyplot as plt
-import numpy as np
 
-# Load the image
-image1 = cv2.imread("flower.jpg")
-
-# Convert the image to RGB color space
-image2 = cv2.cvtColor(image1, cv2.COLOR_BGR2RGB)
-
-# Create the Laplacian kernel
-kernel = np.array([[-1, -1, -1],
-                   [-1, 8, -1],
-                   [-1, -1, -1]])
-
-# Apply the Laplacian kernel
-image3 = cv2.filter2D(image2, -1, kernel)
-
-# Create the figure and subplots
-plt.figure(figsize=(10, 8))
-
-# Display the original image
-plt.subplot(1, 2, 1)
+kernel2=np.array([[-1,-1,-1],[2,-2,1],[2,1,-1]])
+image3=cv2.filter2D(image2,-1,kernel2)
+plt.figure(figsize=(9,9))
+plt.subplot(1,2,1)
 plt.imshow(image2)
 plt.title("Original Image")
 plt.axis("off")
-
-# Display the Laplacian filtered image
-plt.subplot(1, 2, 2)
+plt.subplot(1,2,2)
 plt.imshow(image3)
 plt.title("Laplacian Kernel")
 plt.axis("off")
-
 plt.show()
 
 
 
 
 ```
+![image](https://github.com/user-attachments/assets/10d2b631-b4d7-4db7-8aa9-d26c97176ea1)
+
 ii) Using Laplacian Operator
 ```Python
-import cv2
-import matplotlib.pyplot as plt
-import numpy as np
 
-# Load the image
-image1 = cv2.imread("flower.jpg")
-
-# Convert the image to RGB color space
-image2 = cv2.cvtColor(image1, cv2.COLOR_BGR2RGB)
-
-# Apply the Laplacian operator
-laplacian = cv2.Laplacian(image2, cv2.CV_64F)  # Use CV_64F for better precision
-
-# Convert the Laplacian image back to uint8 for display
-laplacian = cv2.convertScaleAbs(laplacian)
-
-# Create the figure and subplots
-plt.figure(figsize=(8, 8))
-
-# Display the original image
-plt.subplot(1, 2, 1)
+laplacian=cv2.Laplacian(image2,cv2.CV_64F)
+plt.figure(figsize=(9,9))
+plt.subplot(1,2,1)
 plt.imshow(image2)
 plt.title("Original Image")
 plt.axis("off")
-
-# Display the Laplacian filtered image
-plt.subplot(1, 2, 2)
+plt.subplot(1,2,2)
 plt.imshow(laplacian)
 plt.title("Laplacian Operator")
 plt.axis("off")
-
 plt.show()
 
 
 
 
 ```
-
-## OUTPUT:
-### 1. Smoothing Filters
-</br>
-
-i) Using Averaging Filter
-</br>![image](https://github.com/user-attachments/assets/ce45bdb1-dc8b-49e2-86b5-a922d7c51824)
-
-</br>
-</br>
-</br>
-</br>
-
-ii)Using Weighted Averaging Filter
-</br>![image](https://github.com/user-attachments/assets/4a5dbde1-b237-47f5-b645-a1ce989926ac)
-
-</br>
-</br>
-</br>
-</br>
-
-iii)Using Gaussian Filter
-</br>![image](https://github.com/user-attachments/assets/43aea8e5-107c-455e-853f-d96549367f3c)
-
-</br>
-</br>
-</br>
-</br>
-
-iv) Using Median Filter
-</br>![image](https://github.com/user-attachments/assets/aa7f0fdd-c097-42a0-b578-9d8ec9774ee9)
-
-</br>
-</br>
-</br>
-</br>
-
-### 2. Sharpening Filters
-</br>![image](https://github.com/user-attachments/assets/07c43541-4ca5-43f4-b069-404d15b432e3)
+![image](https://github.com/user-attachments/assets/aa55cf4f-2ba9-4cf8-b849-eaeea145ed9b)
 
 
-i) Using Laplacian Kernal
-</br>
-</br>
-</br>
-</br>
-</br>
-
-ii) Using Laplacian Operator
-</br>
-</br>
-</br>
-</br>
-</br>
 
 ## Result:
 Thus the filters are designed for smoothing and sharpening the images in the spatial domain.
